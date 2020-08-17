@@ -1,11 +1,16 @@
 
 # Dagster Celery Example
 
-All required services are started as docker container. A custom image serves as worker image 
-and as dagit image for manual interactions.
+This example demonstrates how Dagster can be used with Celery for distributed processing. It includes:
+
+- Distributed pipeline processing using Celery with RabbitMQ broker and Postgres backend.
+- Worker selection through multiple Celery queues.
+- Minio as Dagster intermediate store.
+- All services dockerized (docker compose).
+
 
 Note that this example currently relies on shared volume mounts to make the pipeline definition
-available to all parties.
+available to all parties (workers and dagit).
 
 
 ## Infrastructure
@@ -21,7 +26,15 @@ docker-compose up rabbit postgres minio
 
 ## Workers
 
+The workers rely on a custom image, this needs to be built first:
+
+```bash
+docker-compose build
+```
+
+
 Runs two workers, a generic one and a (fake-) GPU-accelerated one.
+
 
 ```bash
 docker-compose up worker-generic 
