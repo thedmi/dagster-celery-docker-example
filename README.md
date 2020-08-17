@@ -2,7 +2,11 @@
 # Dagster Celery Example
 
 All required services are started as docker container. A custom image serves as worker image 
-and as test image for manual interactions.
+and as dagit image for manual interactions.
+
+Note that this example currently relies on shared volume mounts to make the pipeline definition
+available to all parties.
+
 
 ## Infrastructure
 
