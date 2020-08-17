@@ -1,7 +1,7 @@
 from boto3 import resource as boto3resource
 from dagster import pipeline, solid, Output, OutputDefinition, InputDefinition, \
     ModeDefinition, default_executors, default_intermediate_storage_defs, resource, \
-    Field
+    Field, repository
 from dagster_aws.s3 import s3_intermediate_storage
 from dagster_celery import celery_executor
 
@@ -65,4 +65,8 @@ def the_pipeline():
     r1 = basic_solid()
     gpu_solid(r1)
 
+
+@repository(name='the repository')
+def the_repository():
+    return [the_pipeline]
 
