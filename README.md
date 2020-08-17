@@ -6,6 +6,7 @@ This example demonstrates how Dagster can be used with Celery for distributed pr
 - Distributed pipeline processing using Celery with RabbitMQ broker and Postgres backend.
 - Worker selection through multiple Celery queues.
 - Minio as Dagster intermediate store.
+- Flower for Celery monitoring.
 - All services dockerized (docker compose).
 
 
@@ -20,7 +21,7 @@ available to all parties (workers and dagit).
 - Minio is used as intermediate store for Dagster.
 
 ```bash
-docker-compose up rabbit postgres minio
+docker-compose up rabbit postgres minio flower
 ```
 
 

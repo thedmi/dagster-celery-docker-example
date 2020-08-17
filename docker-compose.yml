@@ -31,6 +31,12 @@ services:
       MINIO_ACCESS_KEY: 'minio'
       MINIO_SECRET_KEY: 'miniosecret'
     command: 'server /data'
+     
+  flower: 
+    image: mher/flower:0.9.5
+    ports:
+      - 5555:5555
+    command: flower --port=5555 --broker=amqp://rabbit:rabbit@rabbit:5672//
 
   # generic worker
   worker-generic:
@@ -38,7 +44,7 @@ services:
     image: dagster-celery-worker
     volumes:
       - ./workflows:/app
-    entrypoint: "dagster-celery worker start --loglevel=info --app=dagster_celery.app -y celeryconfig.yaml"
+    entrypoint: "dagster-celery worker start --loglevel=info --app=dagster_celery.app -y celeryconfig.yaml --name generic-worker"
     environment: 
       DAGSTER_HOME: /app
 
@@ -48,7 +54,7 @@ services:
     image: dagster-celery-worker
     volumes:
       - ./workflows:/app
-    entrypoint: "dagster-celery worker start --loglevel=info --app=dagster_celery.app -y celeryconfig.yaml -q gpu"
+    entrypoint: "dagster-celery worker start --loglevel=info --app=dagster_celery.app -y celeryconfig.yaml -q gpu --name gpu-worker"
     environment: 
       DAGSTER_HOME: /app
 
