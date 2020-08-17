@@ -4,7 +4,9 @@ __pycache__
 /workflows/.idea/
 /workflows/venv/
 /.minio/.minio.sys/
-/workflows/.telemetry/
 /workflows/dagster_celery/config/
 /workflows/storage/
 /workflows/logs/
+.telemetry/
+/deployment-files/dagster_celery/config/
+/deployment-files/logs/event.log

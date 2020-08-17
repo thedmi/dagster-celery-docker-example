@@ -32,13 +32,21 @@ services:
       MINIO_SECRET_KEY: 'miniosecret'
     command: 'server /data'
 
+  repo-server:
+    build: .
+    image: dagster-celery-worker
+    volumes:
+      - ./workflows:/app
+    entrypoint: dagster api grpc --python-file dagster_pipeline.py --host 0.0.0.0 --port 4266
+
+
   # generic worker
   worker-generic:
     build: .
     image: dagster-celery-worker
     volumes:
-      - ./workflows:/app
-    entrypoint: "dagster-celery worker start --loglevel=info --app=dagster_celery.app -y celeryconfig.yaml"
+      - ./deployment-files:/app
+    entrypoint: "dagster-celery worker start --loglevel=info --app=dagster_celery.app -y celeryconfig.yaml --workspace workspace.yaml"
     environment: 
       DAGSTER_HOME: /app
 
@@ -47,8 +55,8 @@ services:
     build: .
     image: dagster-celery-worker
     volumes:
-      - ./workflows:/app
-    entrypoint: "dagster-celery worker start --loglevel=info --app=dagster_celery.app -y celeryconfig.yaml -q gpu"
+      - ./deployment-files:/app
+    entrypoint: "dagster-celery worker start --loglevel=info --app=dagster_celery.app -y celeryconfig.yaml -q gpu -w workspace.yaml"
     environment: 
       DAGSTER_HOME: /app
 
@@ -58,8 +66,8 @@ services:
     ports:
       - 3000:3000 # Dagit
     volumes:
-      - ./workflows:/app
-    entrypoint: dagit --host 0.0.0.0 -f dagster_pipeline.py
+      - ./deployment-files:/app
+    entrypoint: dagit --host 0.0.0.0
     environment: 
       DAGSTER_HOME: /app
           

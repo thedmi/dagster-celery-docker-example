@@ -1,0 +1,5 @@
+load_from:
+  - grpc_server:
+      host: repo-server
+      port: 4266
+      location_name: 'the_grpc_server'
