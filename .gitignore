@@ -1,0 +1,10 @@
+
+/.idea/
+__pycache__
+/workflows/.idea/
+/workflows/venv/
+/.minio/.minio.sys/
+/workflows/.telemetry/
+/workflows/dagster_celery/config/
+/workflows/storage/
+/workflows/logs/

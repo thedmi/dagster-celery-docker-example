@@ -1,0 +1,5 @@
+execution:
+  celery:
+    broker: 'pyamqp://rabbit:rabbit@rabbit:5672//'
+    backend: 'db+postgresql://postgres:postgres@postgres:5432/dagster_celery'
+

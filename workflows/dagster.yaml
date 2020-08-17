@@ -1,0 +1,36 @@
+run_storage:
+  module: dagster_postgres.run_storage
+  class: PostgresRunStorage
+  config:
+    postgres_db:
+      username: postgres
+      password: postgres
+      hostname: postgres
+      db_name: dagster_celery
+      port: 5432
+
+event_log_storage:
+  module: dagster_postgres.event_log
+  class: PostgresEventLogStorage
+  config:
+    postgres_db:
+      username: postgres
+      password: postgres
+      hostname: postgres
+      db_name: dagster_celery
+      port: 5432
+
+schedule_storage:
+  module: dagster_postgres.schedule_storage
+  class: PostgresScheduleStorage
+  config:
+    postgres_db:
+      username: postgres
+      password: postgres
+      hostname: postgres
+      db_name: dagster_celery
+      port: 5432
+
+scheduler:
+  module: dagster_cron.cron_scheduler
+  class: SystemCronScheduler
